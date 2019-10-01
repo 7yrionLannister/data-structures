@@ -24,6 +24,9 @@ public class Heap<E> {
 	}
 	
 	public int parent(int index) {
+		if(index == 0) { //root does not have a parent
+			return Integer.MIN_VALUE;
+		}
 		return (index - 1)/2;
 	}
 	
@@ -60,9 +63,38 @@ public class Heap<E> {
 		}
 	}
 	
+	public static<T> void HeapSort(T[] array, Comparator<T> comp) {
+		 Heap<T> h = new Heap<T>(comp);
+		 h.setTree(array); //llamada implicita a buildHeap
+		 T[] tarray = h.getTree();
+		 for (int i = tarray.length-1; i > 0; i--) { //desde
+			T root = tarray[0];
+			tarray[0] = tarray[h.heapSize-1];
+			tarray[h.heapSize-1] = root;
+			h.heapSize--;
+			h.heapify(0);
+		}
+	}
+	
 	//TODO use buil-heap
 	public void setTree(E[] array) {
 		tree = array;
 		buildHeap(tree);
+	}
+
+	public int getHeapSize() {
+		return heapSize;
+	}
+
+	public void setHeapSize(int heapSize) {
+		this.heapSize = heapSize;
+	}
+
+	public Comparator<E> getComp() {
+		return comp;
+	}
+
+	public void setComp(Comparator<E> comp) {
+		this.comp = comp;
 	}	
 }
