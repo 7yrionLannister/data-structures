@@ -76,6 +76,36 @@ public class Heap<E> {
 		}
 	}
 	
+	public E extractRoot() throws Exception {
+		if(heapSize < 1) {
+			throw new Exception("Underflow");
+		}
+		E root = tree[0];
+		tree[0] = tree[heapSize-1];
+		heapSize--;
+		heapify(0);
+		return root;
+	}
+	
+	public void increaseKey(int index, E key) throws Exception {
+		if(comp.compare(key, tree[index]) < 0) {
+			throw new Exception("key is less than current key");
+		}
+		tree[index] = key;
+		while(index > 0 && comp.compare(tree[parent(index)], tree[index]) < 0) {
+			E p = tree[parent(index)];
+			tree[parent(index)] = tree[index];
+			tree[index] = p;
+			index = parent(index);
+		}
+	}
+	
+	public void heapInsert(E key) throws Exception {
+		heapSize++;
+		tree[heapSize-1] = key; //el menor de los menores o el mayor de los mayores, segun sea el caso
+		increaseKey(heapSize - 1, key);
+	}
+	
 	//TODO use buil-heap
 	public void setTree(E[] array) {
 		tree = array;
