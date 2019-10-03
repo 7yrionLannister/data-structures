@@ -9,7 +9,7 @@ public class Heap<E> {
 	
 	//puede definir el orden definiendo un Comparator
 	//comp es necesario ya que aqui no se toma en cuenta el orden natural
-	//si comp es Collections.reverseOrder entonces el comportamiento sera el de un minHeap
+	//si define comp de manera que el orden establecido se revirta, sera un min-heap
 	//        de lo contrario es un max-heap
 	public Heap(Comparator<E> comp) {
 		this.comp = comp;
