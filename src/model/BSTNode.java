@@ -2,33 +2,32 @@ package model;
 
 import java.util.List;
 
-public class BSTNode<E extends Comparable<E>> {
-	private E key;
-	private BSTNode<E> parent;
-	private BSTNode<E> left;
-	private BSTNode<E> right;
+public class BSTNode<K extends Comparable<K>, V> {
+	private K key;
+	private V value;
+	private BSTNode<K, V> parent;
+	private BSTNode<K, V> left;
+	private BSTNode<K, V> right;
 	
-	public BSTNode(E key) {
+	public BSTNode(K key, V value) {
 		this.key = key;
+		this.value = value;
 	}
 	
-	public boolean add(E newitem) {
-		return add(new BSTNode<E>(newitem));
-	}
-	
-	private boolean add(BSTNode<E> newitem) {
-		newitem.setParent(this);
+	/**Use this function through BTS to ensure the order condition throughout the tree
+	 * */
+	public boolean add(BSTNode<K, V> newitem) {
+		newitem.parent = this;
 		if(newitem.key.compareTo(key) > 0) {
 			if(right == null) {
-				right = new BSTNode<E>(key);
+				right = newitem;
 				return true;
 			} else {
 				right.add(newitem);
 			}
 		} else {
 			if(left == null) {
-				newitem.setParent(left);
-				left = new BSTNode<E>(key);
+				left = newitem;
 				return true;
 			} else {
 				left.add(newitem);
@@ -37,8 +36,20 @@ public class BSTNode<E extends Comparable<E>> {
 		return false;
 	}
 	
-	public void preorderFill(List<E> p) {
-		p.add(key);
+	public V search(K key) {
+		int comp = this.key.compareTo(key); 
+		if(comp == 0) {
+			return value;
+		} else if(comp < 0 && right != null) {
+			return right.search(key);
+		} else if(comp > 0 && left != null) {
+			return left.search(key);
+		}
+		return null;
+	}
+	
+	public void preorderFill(List<V> p) {
+		p.add(value);
 		if(left != null) {
 			left.preorderFill(p);
 		}
@@ -47,69 +58,58 @@ public class BSTNode<E extends Comparable<E>> {
 		}
 	}
 	
-	public void inorderFill(List<E> p) {
+	public void inorderFill(List<V> i) {
 		if(left != null) {
-			left.inorderFill(p);
+			left.inorderFill(i);
 		}
-		p.add(key);
+		i.add(value);
 		if(right != null) {
-			right.inorderFill(p);
+			right.inorderFill(i);
 		}
 	}
 	
-	public void postorderFill(List<E> p) {
+	public void postorderFill(List<V> p) {
 		if(left != null) {
 			left.postorderFill(p);
 		}
 		if(right != null) {
 			right.postorderFill(p);
 		}
-		p.add(key);
+		p.add(value);
 	}
 	
-	public E minimum() {
+	public V minimum() {
 		if(left != null) {
 			return left.minimum();
 		}
-		return key;
+		return value;
 	}
 	
-	public E maximum() {
+	public V maximum() {
 		if(right != null) {
 			return right.maximum();
 		}
+		return value;
+	}
+
+	public K getKey() {
 		return key;
 	}
 
-	public E getKey() {
-		return key;
-	}
 
-	public void setKey(E key) {
-		this.key = key;
-	}
-
-	public BSTNode<E> getLeft() {
+	public BSTNode<K, V> getLeft() {
 		return left;
 	}
 
-	public void setLeft(BSTNode<E> left) {
-		this.left = left;
-	}
-
-	public BSTNode<E> getRight() {
+	public BSTNode<K, V> getRight() {
 		return right;
 	}
 
-	public void setRight(BSTNode<E> right) {
-		this.right = right;
-	}
-
-	public BSTNode<E> getParent() {
+	public BSTNode<K, V> getParent() {
 		return parent;
 	}
 
-	public void setParent(BSTNode<E> parent) {
-		this.parent = parent;
+	public V getValue() {
+		return value;
 	}
 }
