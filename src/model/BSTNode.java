@@ -36,10 +36,10 @@ public class BSTNode<K extends Comparable<K>, V> {
 		return false;
 	}
 	
-	public V search(K key) {
+	public BSTNode<K, V> search(K key) {
 		int comp = this.key.compareTo(key); 
 		if(comp == 0) {
-			return value;
+			return this;
 		} else if(comp < 0 && right != null) {
 			return right.search(key);
 		} else if(comp > 0 && left != null) {
@@ -48,8 +48,8 @@ public class BSTNode<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public void preorderFill(List<V> p) {
-		p.add(value);
+	public void preorderFill(List<BSTNode<K, V>> p) {
+		p.add(this);
 		if(left != null) {
 			left.preorderFill(p);
 		}
@@ -58,58 +58,77 @@ public class BSTNode<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public void inorderFill(List<V> i) {
+	public void inorderFill(List<BSTNode<K, V>> i) {
 		if(left != null) {
 			left.inorderFill(i);
 		}
-		i.add(value);
+		i.add(this);
 		if(right != null) {
 			right.inorderFill(i);
 		}
 	}
 	
-	public void postorderFill(List<V> p) {
+	public void postorderFill(List<BSTNode<K, V>> p) {
 		if(left != null) {
 			left.postorderFill(p);
 		}
 		if(right != null) {
 			right.postorderFill(p);
 		}
-		p.add(value);
+		p.add(this);
 	}
 	
-	public V minimum() {
+	public BSTNode<K, V> minimum() {
 		if(left != null) {
 			return left.minimum();
 		}
-		return value;
+		return this;
 	}
 	
-	public V maximum() {
+	public BSTNode<K, V> maximum() {
 		if(right != null) {
 			return right.maximum();
 		}
-		return value;
+		return this;
 	}
 
 	public K getKey() {
 		return key;
 	}
-
+	
+	public void setKey(K k) {
+		key = k;
+	}
 
 	public BSTNode<K, V> getLeft() {
 		return left;
+	}
+	
+	public void setLeft(BSTNode<K ,V> l) {
+		left = l;
 	}
 
 	public BSTNode<K, V> getRight() {
 		return right;
 	}
+	
+	public void setRight(BSTNode<K, V> r) {
+		right = r;
+	}
 
 	public BSTNode<K, V> getParent() {
 		return parent;
 	}
+	
+	public void setParent(BSTNode<K, V> p) {
+		parent = p;
+	} 
 
 	public V getValue() {
 		return value;
+	}
+	
+	public void setValue(V v) {
+		value = v;
 	}
 }
