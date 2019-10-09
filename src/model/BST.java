@@ -17,7 +17,16 @@ public class BST<K extends Comparable<K>, V> {
 		}
 	}
 
-	public boolean delete(BSTNode<K, V> z) {
+	public boolean delete(K key) {
+		BSTNode<K, V> node = searchNode(key);
+		if(node != null) {
+			delete(node);
+			return true;
+		}
+		return false;
+	}
+	
+	private void delete(BSTNode<K, V> z) {
 		BSTNode<K, V> y;
 		if(z != null) {
 			if(z.getLeft() == null || z.getRight() == null) {
@@ -51,10 +60,17 @@ public class BST<K extends Comparable<K>, V> {
 				z.setValue(y.getValue());
 			}
 		}
-		return false;
 	}
 	
-	public BSTNode<K, V> search(K key) {
+	public V search(K key) {
+		BSTNode<K, V> node = searchNode(key);
+		if(node != null) {
+			return node.getValue();
+		}
+		return null;
+	}
+	
+	private BSTNode<K, V> searchNode(K key) {
 		if(root != null) {
 			return root.search(key);
 		} 

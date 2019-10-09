@@ -31,12 +31,12 @@ public class BSTTest {
 		createBSTTest();
 		int keyandval = 50;
 		bst.add(keyandval, keyandval);
-		Integer found = bst.search(keyandval).getKey(); 
+		Integer found = bst.search(keyandval); 
 		assertTrue(bst.getRoot().getKey() == keyandval && bst.getRoot().getValue() == keyandval && found == keyandval, "Root is not the expected");
 		for(int i = 0; i < 30; i++) {
 			keyandval = (int)(Math.random()*100+1);
 			bst.add(keyandval, keyandval);
-			found = bst.search(keyandval).getKey();
+			found = bst.search(keyandval);
 			assertTrue(found == keyandval, "Element should be found as it was just added");
 		}
 		assertTrue(bst.search(200) == null, "No element with key 200 was added so it should not be in the BST");
@@ -114,7 +114,7 @@ public class BSTTest {
 		ArrayList<BSTNode<Integer,Integer>> i = new ArrayList<>();
 		
 		int toRemove = 4;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -122,7 +122,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 2;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -130,7 +130,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 7;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -138,7 +138,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 3;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -146,7 +146,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 1;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -154,7 +154,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 5;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -162,7 +162,7 @@ public class BSTTest {
 		}
 		
 		toRemove = 6;
-		bst.delete(bst.search(toRemove));
+		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {

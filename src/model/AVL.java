@@ -17,7 +17,16 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 	}
 
-	public boolean delete(AVLNode<K, V> z) {
+	public boolean delete(K key) {
+		AVLNode<K, V> node = searchNode(key);
+		if(node != null) {
+			delete(node);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean delete(AVLNode<K, V> z) {
 		AVLNode<K, V> y;
 		if(z != null) {
 			if(z.getLeft() == null || z.getRight() == null) {
@@ -54,7 +63,15 @@ public class AVL<K extends Comparable<K>, V> {
 		return false;
 	}
 	
-	public AVLNode<K, V> search(K key) {
+	public V search(K key) {
+		AVLNode<K, V> node = searchNode(key);
+		if(node != null) {
+			return node.getValue();
+		}
+		return null;
+	}
+	
+	private AVLNode<K, V> searchNode(K key) {
 		if(root != null) {
 			return root.search(key);
 		} 
@@ -133,9 +150,9 @@ public class AVL<K extends Comparable<K>, V> {
 		AVLNode<K, V> parent = target.getParent();
 		right.setParent(parent);
 		
+		target.setParent(right);
 		if(parent == null) {
 			root = right;
-			target.setParent(root);
 		} else {
 			if(parent.getLeft() == target) {
 				parent.setLeft(right);
@@ -145,6 +162,34 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 		
 		right.setLeft(target);
+	}
+	
+	public void rightRotate(AVLNode<K, V> target) {
+		AVLNode<K, V> left = target.getLeft();
+		if(left == null) {
+			throw new IllegalStateException();
+		}
+		AVLNode<K, V> rightOfLeftSubtree = left.getRight();
+		if(rightOfLeftSubtree != null) {
+			rightOfLeftSubtree.setParent(target);
+		}
+		target.setLeft(rightOfLeftSubtree);
+		
+		AVLNode<K, V> parent = target.getParent();
+		left.setParent(parent);
+		
+		target.setParent(left);
+		if(parent == null) {
+			root = left;
+		} else {
+			if(parent.getLeft() == target) {
+				parent.setLeft(left);
+			} else {
+				parent.setRight(left);
+			}
+		}
+		
+		left.setRight(target);
 	}
 	
 	public AVLNode<K, V> getRoot() {
