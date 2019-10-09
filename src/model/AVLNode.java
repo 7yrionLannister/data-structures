@@ -2,21 +2,23 @@ package model;
 
 import java.util.List;
 
-public class BSTNode<K extends Comparable<K>, V> {
+public class AVLNode<K extends Comparable<K>, V> {
 	private K key;
 	private V value;
-	private BSTNode<K, V> parent;
-	private BSTNode<K, V> left;
-	private BSTNode<K, V> right;
+	private AVLNode<K, V> parent;
+	private AVLNode<K, V> left;
+	private AVLNode<K, V> right;
+	private int heigh;
+	private int balanceFactor;
 	
-	public BSTNode(K key, V value) {
+	public AVLNode(K key, V value) {
 		this.key = key;
 		this.value = value;
 	}
 	
 	/**Use this function through BTS to ensure the order condition throughout the tree
 	 * */
-	public boolean add(BSTNode<K, V> newitem) {
+	public boolean add(AVLNode<K, V> newitem) {
 		newitem.parent = this;
 		if(newitem.key.compareTo(key) > 0) {
 			if(right == null) {
@@ -36,7 +38,7 @@ public class BSTNode<K extends Comparable<K>, V> {
 		return false;
 	}
 	
-	public BSTNode<K, V> search(K key) {
+	public AVLNode<K, V> search(K key) {
 		int comp = this.key.compareTo(key); 
 		if(comp == 0) {
 			return this;
@@ -48,7 +50,7 @@ public class BSTNode<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public void preorderFill(List<BSTNode<K, V>> p) {
+	public void preorderFill(List<AVLNode<K, V>> p) {
 		p.add(this);
 		if(left != null) {
 			left.preorderFill(p);
@@ -58,7 +60,7 @@ public class BSTNode<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public void inorderFill(List<BSTNode<K, V>> i) {
+	public void inorderFill(List<AVLNode<K, V>> i) {
 		if(left != null) {
 			left.inorderFill(i);
 		}
@@ -68,7 +70,7 @@ public class BSTNode<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public void postorderFill(List<BSTNode<K, V>> p) {
+	public void postorderFill(List<AVLNode<K, V>> p) {
 		if(left != null) {
 			left.postorderFill(p);
 		}
@@ -78,20 +80,20 @@ public class BSTNode<K extends Comparable<K>, V> {
 		p.add(this);
 	}
 	
-	public BSTNode<K, V> minimum() {
+	public AVLNode<K, V> minimum() {
 		if(left != null) {
 			return left.minimum();
 		}
 		return this;
 	}
 	
-	public BSTNode<K, V> maximum() {
+	public AVLNode<K, V> maximum() {
 		if(right != null) {
 			return right.maximum();
 		}
 		return this;
 	}
-
+	
 	public K getKey() {
 		return key;
 	}
@@ -100,27 +102,27 @@ public class BSTNode<K extends Comparable<K>, V> {
 		key = k;
 	}
 
-	public BSTNode<K, V> getLeft() {
+	public AVLNode<K, V> getLeft() {
 		return left;
 	}
 	
-	public void setLeft(BSTNode<K ,V> l) {
+	public void setLeft(AVLNode<K ,V> l) {
 		left = l;
 	}
 
-	public BSTNode<K, V> getRight() {
+	public AVLNode<K, V> getRight() {
 		return right;
 	}
 	
-	public void setRight(BSTNode<K, V> r) {
+	public void setRight(AVLNode<K, V> r) {
 		right = r;
 	}
 
-	public BSTNode<K, V> getParent() {
+	public AVLNode<K, V> getParent() {
 		return parent;
 	}
 	
-	public void setParent(BSTNode<K, V> p) {
+	public void setParent(AVLNode<K, V> p) {
 		parent = p;
 	} 
 
@@ -130,5 +132,21 @@ public class BSTNode<K extends Comparable<K>, V> {
 	
 	public void setValue(V v) {
 		value = v;
+	}
+
+	public int getHeigh() {
+		return heigh;
+	}
+
+	public void setHeigh(int heigh) {
+		this.heigh = heigh;
+	}
+
+	public int getBalanceFactor() {
+		return balanceFactor;
+	}
+
+	public void setBalanceFactor(int balanceFactor) {
+		this.balanceFactor = balanceFactor;
 	}
 }
