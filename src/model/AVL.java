@@ -119,6 +119,34 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 	}
 
+	public void leftRotate(AVLNode<K, V> target) {
+		AVLNode<K, V> right = target.getRight();
+		if(right == null) {
+			throw new IllegalStateException();
+		}
+		AVLNode<K, V> leftOfRightSubtree = right.getLeft();
+		if(leftOfRightSubtree != null) {
+			leftOfRightSubtree.setParent(target);
+		}
+		target.setRight(leftOfRightSubtree);
+		
+		AVLNode<K, V> parent = target.getParent();
+		right.setParent(parent);
+		
+		if(parent == null) {
+			root = right;
+			target.setParent(root);
+		} else {
+			if(parent.getLeft() == target) {
+				parent.setLeft(right);
+			} else {
+				parent.setRight(right);
+			}
+		}
+		
+		right.setLeft(target);
+	}
+	
 	public AVLNode<K, V> getRoot() {
 		return root;
 	}
