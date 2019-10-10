@@ -78,19 +78,19 @@ public class AVL<K extends Comparable<K>, V> {
 		return null;
 	}
 
-	public void preorderFill(List<AVLNode<K, V>> p) {
+	public void preorderFill(List<V> p) {
 		if(root != null) {
 			root.preorderFill(p);
 		}
 	}
 
-	public void inorderFill(List<AVLNode<K, V>> i) {
+	public void inorderFill(List<V> i) {
 		if(root != null) {
 			root.inorderFill(i);
 		}
 	}
 
-	public void postorderFill(List<AVLNode<K, V>> p) {
+	public void postorderFill(List<V> p) {
 		if(root != null) {
 			root.postorderFill(p);
 		}
@@ -110,7 +110,19 @@ public class AVL<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public AVLNode<K, V> successor(AVLNode<K, V> src) {
+	public V successor(K src) {
+		AVLNode<K, V> node = searchNode(src);
+		AVLNode<K, V> suc;
+		if(node != null) {
+			suc = successor(node);
+			if(suc != null) {
+				return suc.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private AVLNode<K, V> successor(AVLNode<K, V> src) {
 		if(src.getRight() != null) {
 			return src.getRight().minimum();
 		} else {
@@ -123,7 +135,19 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public AVLNode<K, V> predecessor(AVLNode<K, V> src) {
+	public V predecessor(K src) {
+		AVLNode<K, V> node = searchNode(src);
+		AVLNode<K, V> pre;
+		if(node != null) {
+			pre = predecessor(node);
+			if(pre != null) {
+				return pre.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private AVLNode<K, V> predecessor(AVLNode<K, V> src) {
 		if(src.getLeft() != null) {
 			return src.getLeft().maximum();
 		} else {

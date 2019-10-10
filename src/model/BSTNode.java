@@ -48,8 +48,8 @@ public class BSTNode<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public void preorderFill(List<BSTNode<K, V>> p) {
-		p.add(this);
+	public void preorderFill(List<V> p) {
+		p.add(value);
 		if(left != null) {
 			left.preorderFill(p);
 		}
@@ -58,24 +58,24 @@ public class BSTNode<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public void inorderFill(List<BSTNode<K, V>> i) {
+	public void inorderFill(List<V> i) {
 		if(left != null) {
 			left.inorderFill(i);
 		}
-		i.add(this);
+		i.add(value);
 		if(right != null) {
 			right.inorderFill(i);
 		}
 	}
 	
-	public void postorderFill(List<BSTNode<K, V>> p) {
+	public void postorderFill(List<V> p) {
 		if(left != null) {
 			left.postorderFill(p);
 		}
 		if(right != null) {
 			right.postorderFill(p);
 		}
-		p.add(this);
+		p.add(value);
 	}
 	
 	public BSTNode<K, V> minimum() {

@@ -77,19 +77,19 @@ public class BST<K extends Comparable<K>, V> {
 		return null;
 	}
 
-	public void preorderFill(List<BSTNode<K, V>> p) {
+	public void preorderFill(List<V> p) {
 		if(root != null) {
 			root.preorderFill(p);
 		}
 	}
 
-	public void inorderFill(List<BSTNode<K, V>> i) {
+	public void inorderFill(List<V> i) {
 		if(root != null) {
 			root.inorderFill(i);
 		}
 	}
 
-	public void postorderFill(List<BSTNode<K, V>> p) {
+	public void postorderFill(List<V> p) {
 		if(root != null) {
 			root.postorderFill(p);
 		}
@@ -109,7 +109,19 @@ public class BST<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public BSTNode<K, V> successor(BSTNode<K, V> src) {
+	public V successor(K src) {
+		BSTNode<K, V> node = searchNode(src);
+		BSTNode<K, V> suc;
+		if(node != null) {
+			suc = successor(node);
+			if(suc != null) {
+				return suc.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private BSTNode<K, V> successor(BSTNode<K, V> src) {
 		if(src.getRight() != null) {
 			return src.getRight().minimum();
 		} else {
@@ -122,7 +134,19 @@ public class BST<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public BSTNode<K, V> predecessor(BSTNode<K, V> src) {
+	public V predecessor(K src) {
+		BSTNode<K, V> node = searchNode(src);
+		BSTNode<K, V> pre;
+		if(node != null) {
+			pre = predecessor(node);
+			if(pre != null) {
+				return pre.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private BSTNode<K, V> predecessor(BSTNode<K, V> src) {
 		if(src.getLeft() != null) {
 			return src.getLeft().maximum();
 		} else {

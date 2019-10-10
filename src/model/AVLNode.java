@@ -8,12 +8,14 @@ public class AVLNode<K extends Comparable<K>, V> {
 	private AVLNode<K, V> parent;
 	private AVLNode<K, V> left;
 	private AVLNode<K, V> right;
-	private int heigh;
+	private int height;
 	private int balanceFactor;
 	
 	public AVLNode(K key, V value) {
 		this.key = key;
 		this.value = value;
+		balanceFactor = 0;
+		height = 1;
 	}
 	
 	/**Use this function through BTS to ensure the order condition throughout the tree
@@ -50,8 +52,8 @@ public class AVLNode<K extends Comparable<K>, V> {
 		return null;
 	}
 	
-	public void preorderFill(List<AVLNode<K, V>> p) {
-		p.add(this);
+	public void preorderFill(List<V> p) {
+		p.add(value);
 		if(left != null) {
 			left.preorderFill(p);
 		}
@@ -60,24 +62,24 @@ public class AVLNode<K extends Comparable<K>, V> {
 		}
 	}
 	
-	public void inorderFill(List<AVLNode<K, V>> i) {
+	public void inorderFill(List<V> i) {
 		if(left != null) {
 			left.inorderFill(i);
 		}
-		i.add(this);
+		i.add(value);
 		if(right != null) {
 			right.inorderFill(i);
 		}
 	}
 	
-	public void postorderFill(List<AVLNode<K, V>> p) {
+	public void postorderFill(List<V> p) {
 		if(left != null) {
 			left.postorderFill(p);
 		}
 		if(right != null) {
 			right.postorderFill(p);
 		}
-		p.add(this);
+		p.add(value);
 	}
 	
 	public AVLNode<K, V> minimum() {
@@ -134,12 +136,12 @@ public class AVLNode<K extends Comparable<K>, V> {
 		value = v;
 	}
 
-	public int getHeigh() {
-		return heigh;
+	public int getheight() {
+		return height;
 	}
 
-	public void setHeigh(int heigh) {
-		this.heigh = heigh;
+	public void setheight(int height) {
+		this.height = height;
 	}
 
 	public int getBalanceFactor() {

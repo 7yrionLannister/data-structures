@@ -45,80 +45,80 @@ public class BSTTest {
 	@Test
 	public void preorderTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer, Integer>> p = new ArrayList<>();
+		ArrayList<Integer> p = new ArrayList<>();
 		bst.preorderFill(p);
-		assertTrue(p.get(0).getKey() == 4, "It is not preorder");
-		assertTrue(p.get(1).getKey() == 2, "It is not preorder");
-		assertTrue(p.get(2).getKey() == 1, "It is not preorder");
-		assertTrue(p.get(3).getKey() == 3, "It is not preorder");
-		assertTrue(p.get(4).getKey() == 6, "It is not preorder");
-		assertTrue(p.get(5).getKey() == 5, "It is not preorder");
-		assertTrue(p.get(6).getKey() == 7, "It is not preorder");
+		assertTrue(p.get(0) == 4, "It is not preorder");
+		assertTrue(p.get(1) == 2, "It is not preorder");
+		assertTrue(p.get(2) == 1, "It is not preorder");
+		assertTrue(p.get(3) == 3, "It is not preorder");
+		assertTrue(p.get(4) == 6, "It is not preorder");
+		assertTrue(p.get(5) == 5, "It is not preorder");
+		assertTrue(p.get(6) == 7, "It is not preorder");
 	}
 	
 	@Test
 	public void inorderTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer, Integer>> i = new ArrayList<>();
+		ArrayList<Integer> i = new ArrayList<>();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 	}
 	
 	@Test
 	public void postOrderTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer, Integer>> p = new ArrayList<>();
+		ArrayList<Integer> p = new ArrayList<>();
 		bst.postorderFill(p);
-		assertTrue(p.get(0).getKey() == 1, "It is not preorder");
-		assertTrue(p.get(1).getKey() == 3, "It is not preorder");
-		assertTrue(p.get(2).getKey() == 2, "It is not preorder");
-		assertTrue(p.get(3).getKey() == 5, "It is not preorder");
-		assertTrue(p.get(4).getKey() == 7, "It is not preorder");
-		assertTrue(p.get(5).getKey() == 6, "It is not preorder");
-		assertTrue(p.get(6).getKey() == 4, "It is not preorder");
+		assertTrue(p.get(0) == 1, "It is not preorder");
+		assertTrue(p.get(1) == 3, "It is not preorder");
+		assertTrue(p.get(2) == 2, "It is not preorder");
+		assertTrue(p.get(3) == 5, "It is not preorder");
+		assertTrue(p.get(4) == 7, "It is not preorder");
+		assertTrue(p.get(5) == 6, "It is not preorder");
+		assertTrue(p.get(6) == 4, "It is not preorder");
 	}
 	
 	@Test
 	public void successorTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer, Integer>> i = new ArrayList<>();
+		ArrayList<Integer> i = new ArrayList<>();
 		bst.inorderFill(i);
-		assertTrue(bst.successor(i.get(0)).getKey() == 2, "Wrong successor");
-		assertTrue(bst.successor(i.get(1)).getKey() == 3, "Wrong successor");
-		assertTrue(bst.successor(i.get(2)).getKey() == 4, "Wrong successor");
-		assertTrue(bst.successor(i.get(3)).getKey() == 5, "Wrong successor");
-		assertTrue(bst.successor(i.get(4)).getKey() == 6, "Wrong successor");
-		assertTrue(bst.successor(i.get(5)).getKey() == 7, "Wrong successor");
+		assertTrue(bst.successor(i.get(0)) == 2, "Wrong successor");
+		assertTrue(bst.successor(i.get(1)) == 3, "Wrong successor");
+		assertTrue(bst.successor(i.get(2)) == 4, "Wrong successor");
+		assertTrue(bst.successor(i.get(3)) == 5, "Wrong successor");
+		assertTrue(bst.successor(i.get(4)) == 6, "Wrong successor");
+		assertTrue(bst.successor(i.get(5)) == 7, "Wrong successor");
 		assertNull(bst.successor(i.get(6)), "Wrong successor");
 	}
 	
 	@Test
 	public void predecessorTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer, Integer>> i = new ArrayList<>();
+		ArrayList<Integer> i = new ArrayList<>();
 		bst.inorderFill(i);
 		assertNull(bst.predecessor(i.get(0)), "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(1)).getKey() == 1, "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(2)).getKey() == 2, "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(3)).getKey() == 3, "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(4)).getKey() == 4, "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(5)).getKey() == 5, "Wrong predecessor");
-		assertTrue(bst.predecessor(i.get(6)).getKey() == 6, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(1)) == 1, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(2)) == 2, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(3)) == 3, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(4)) == 4, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(5)) == 5, "Wrong predecessor");
+		assertTrue(bst.predecessor(i.get(6)) == 6, "Wrong predecessor");
 	}
 	
 	@Test
 	public void deleteTest() {
 		setupStage1();
-		ArrayList<BSTNode<Integer,Integer>> i = new ArrayList<>();
+		ArrayList<Integer> i = new ArrayList<>();
 		
 		int toRemove = 4;
 		bst.delete(toRemove);
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 2;
@@ -126,7 +126,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 7;
@@ -134,7 +134,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 3;
@@ -142,7 +142,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 1;
@@ -150,7 +150,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 5;
@@ -158,7 +158,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		toRemove = 6;
@@ -166,7 +166,7 @@ public class BSTTest {
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j).getKey() >= i.get(j-1).getKey(), "It is not inorder");
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 		
 		assertNull(bst.getRoot(), "All the elements in the tree were removed so it must be empty");
