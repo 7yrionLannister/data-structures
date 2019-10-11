@@ -115,6 +115,7 @@ public class BSTTest {
 		
 		int toRemove = 4;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -123,6 +124,7 @@ public class BSTTest {
 		
 		toRemove = 2;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -131,6 +133,7 @@ public class BSTTest {
 		
 		toRemove = 7;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -139,6 +142,7 @@ public class BSTTest {
 		
 		toRemove = 3;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -147,6 +151,7 @@ public class BSTTest {
 		
 		toRemove = 1;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -155,6 +160,7 @@ public class BSTTest {
 		
 		toRemove = 5;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {
@@ -163,6 +169,7 @@ public class BSTTest {
 		
 		toRemove = 6;
 		bst.delete(toRemove);
+		assertNull(bst.search(toRemove), "Element was not deleted");
 		i.clear();
 		bst.inorderFill(i);
 		for (int j = 1; j < i.size(); j++) {

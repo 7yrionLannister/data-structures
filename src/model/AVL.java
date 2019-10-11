@@ -13,7 +13,30 @@ public class AVL<K extends Comparable<K>, V> {
 		if(root == null) {
 			root = new AVLNode<>(key, value);
 		} else {
-			root.add(new AVLNode<>(key, value));
+			AVLNode<K, V> node = new AVLNode<>(key, value);
+			root.add(node);
+			refreshAncestorsHeight(node);
+		}
+	}
+	
+	public void refreshAncestorsHeight(AVLNode<K, V> node) {
+		AVLNode<K, V> parent = node.getParent();
+		if(parent != null) {
+			AVLNode<K, V> left = parent.getLeft();
+			AVLNode<K, V> right = parent.getRight();
+			int maxHeight = Integer.MIN_VALUE;
+			int heightLeft = 0;
+			int heightRight = 0;
+			if(left != null) {
+				heightLeft = left.getheight();
+			}
+			if(right != null) {
+				heightRight = right.getheight();
+			}
+			maxHeight = Math.max(heightLeft, heightRight);
+			parent.setheight(maxHeight+1);
+			parent.setBalanceFactor(heightRight-heightLeft);
+			refreshAncestorsHeight(parent);
 		}
 	}
 

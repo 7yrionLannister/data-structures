@@ -15,7 +15,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 		this.key = key;
 		this.value = value;
 		balanceFactor = 0;
-		height = 1;
+		height = 0;
 	}
 	
 	/**Use this function through BTS to ensure the order condition throughout the tree
@@ -29,7 +29,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 			} else {
 				right.add(newitem);
 			}
-		} else if(newitem.key.compareTo(key) < 0){
+		} else if(newitem.key.compareTo(key) < 0) {
 			if(left == null) {
 				left = newitem;
 				return true;
