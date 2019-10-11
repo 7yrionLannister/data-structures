@@ -15,11 +15,11 @@ public class AVL<K extends Comparable<K>, V> {
 		} else {
 			AVLNode<K, V> node = new AVLNode<>(key, value);
 			root.add(node);
-			refreshAncestorsHeight(node);
+			refreshAncestorsHeightAndBalanceFactor(node);
 		}
 	}
 	
-	public void refreshAncestorsHeight(AVLNode<K, V> node) {
+	public void refreshAncestorsHeightAndBalanceFactor(AVLNode<K, V> node) {
 		AVLNode<K, V> parent = node.getParent();
 		if(parent != null) {
 			AVLNode<K, V> left = parent.getLeft();
@@ -36,7 +36,7 @@ public class AVL<K extends Comparable<K>, V> {
 			maxHeight = Math.max(heightLeft, heightRight);
 			parent.setheight(maxHeight+1);
 			parent.setBalanceFactor(heightRight-heightLeft);
-			refreshAncestorsHeight(parent);
+			refreshAncestorsHeightAndBalanceFactor(parent);
 		}
 	}
 
@@ -209,6 +209,8 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 		
 		right.setLeft(target);
+		
+		refreshAncestorsHeightAndBalanceFactor(target);
 	}
 	
 	public void rightRotate(AVLNode<K, V> target) {
@@ -237,6 +239,8 @@ public class AVL<K extends Comparable<K>, V> {
 		}
 		
 		left.setRight(target);
+		
+		refreshAncestorsHeightAndBalanceFactor(target);
 	}
 	
 	public AVLNode<K, V> getRoot() {
