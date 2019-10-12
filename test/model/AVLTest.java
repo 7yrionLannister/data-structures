@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class AVLTest {
 	private AVL<Integer, Integer> AVL;
-	
+
 	private void setupStage1() {
 		AVL = new AVL<>();
 		AVL.add(4, 4);
@@ -19,7 +19,7 @@ public class AVLTest {
 		AVL.add(5, 5);
 		AVL.add(7, 7);
 	}
-	
+
 	@Test
 	public void createAVLTest() {
 		AVL = new AVL<>();
@@ -29,25 +29,22 @@ public class AVLTest {
 	@Test
 	public void addAndSearchTest() {
 		createAVLTest();
-		int keyandval = 50;
-		AVL.add(keyandval, keyandval);
-		
-		checkAVLProperty(AVL.getRoot());
-		
-		Integer found = AVL.search(keyandval); 
-		assertTrue(AVL.getRoot().getKey() == keyandval && AVL.getRoot().getValue() == keyandval && found == keyandval, "Root is not the expected");
-		for(int i = 0; i < 30; i++) {
-			keyandval = (int)(Math.random()*100+1);
+		int keyandval;
+
+		Integer found;
+		for(int i = 0; i < 10000; i++) {
+			keyandval = (int)(Math.random()*1000000);
 			AVL.add(keyandval, keyandval);
-			
+
 			checkAVLProperty(AVL.getRoot());
+			checkOrderProperty();
 			
 			found = AVL.search(keyandval);
 			assertTrue(found == keyandval, "Element should be found as it was just added");
 		}
-		assertTrue(AVL.search(200) == null, "No element with key 200 was added so it should not be in the AVL");
+		assertTrue(AVL.search(2000000) == null, "No element with key 2000000 was added so it should not be in the AVL");
 	}
-	
+
 	@Test
 	public void preorderTest() {
 		setupStage1();
@@ -61,7 +58,7 @@ public class AVLTest {
 		assertTrue(p.get(5) == 5, "It is not preorder");
 		assertTrue(p.get(6) == 7, "It is not preorder");
 	}
-	
+
 	@Test
 	public void inorderTest() {
 		setupStage1();
@@ -71,7 +68,7 @@ public class AVLTest {
 			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 	}
-	
+
 	@Test
 	public void postOrderTest() {
 		setupStage1();
@@ -85,7 +82,7 @@ public class AVLTest {
 		assertTrue(p.get(5) == 6, "It is not preorder");
 		assertTrue(p.get(6) == 4, "It is not preorder");
 	}
-	
+
 	@Test
 	public void successorTest() {
 		setupStage1();
@@ -99,7 +96,7 @@ public class AVLTest {
 		assertTrue(AVL.successor(i.get(5)) == 7, "Wrong successor");
 		assertNull(AVL.successor(i.get(6)), "Wrong successor");
 	}
-	
+
 	@Test
 	public void predecessorTest() {
 		setupStage1();
@@ -113,86 +110,64 @@ public class AVLTest {
 		assertTrue(AVL.predecessor(i.get(5)) == 5, "Wrong predecessor");
 		assertTrue(AVL.predecessor(i.get(6)) == 6, "Wrong predecessor");
 	}
-	
+
 	@Test
 	public void deleteTest() {
 		setupStage1();
-		ArrayList<Integer> i = new ArrayList<>();
-		
+
 		int toRemove = 4;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 2;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 7;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 3;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 1;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 5;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		toRemove = 6;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
-		i.clear();
-		AVL.inorderFill(i);
-		for (int j = 1; j < i.size(); j++) {
-			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
-		}
-		
+		checkOrderProperty();
+
 		assertNull(AVL.getRoot(), "All the elements in the tree were removed so it must be empty");
 	}
-	
+
 	public void checkAVLProperty(AVLNode<Integer, Integer> node) {
-		System.out.println("node: "+node.getValue()+", bf: " + node.getBalanceFactor());
 		assertTrue(Math.abs(node.getBalanceFactor()) <= 1, "Tree is not height balanced");
 		if(node.getLeft() != null) {
 			checkAVLProperty(node.getLeft());
 		}
 		if(node.getRight() != null) {
 			checkAVLProperty(node.getRight());
+		}
+	}
+	
+	public void checkOrderProperty() {
+		ArrayList<Integer> i = new ArrayList<>();
+		AVL.inorderFill(i);
+		for (int j = 1; j < i.size(); j++) {
+			assertTrue(i.get(j) >= i.get(j-1), "It is not inorder");
 		}
 	}
 }

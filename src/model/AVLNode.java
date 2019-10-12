@@ -10,36 +10,37 @@ public class AVLNode<K extends Comparable<K>, V> {
 	private AVLNode<K, V> right;
 	private int height;
 	private int balanceFactor;
-	
+
 	public AVLNode(K key, V value) {
 		this.key = key;
 		this.value = value;
 		balanceFactor = 0;
-		height = 0;
+		height = 1;
 	}
-	
+
 	/**Use this function through BTS to ensure the order condition throughout the tree
 	 * */
 	public boolean add(AVLNode<K, V> newitem) {
 		newitem.parent = this;
-		if(newitem.key.compareTo(key) > 0) {
+		int comp = newitem.key.compareTo(key); 
+		if(comp > 0) {
 			if(right == null) {
 				right = newitem;
 				return true;
 			} else {
-				right.add(newitem);
+				return right.add(newitem);
 			}
-		} else if(newitem.key.compareTo(key) < 0) {
+		} else if(comp < 0) {
 			if(left == null) {
 				left = newitem;
 				return true;
 			} else {
-				left.add(newitem);
+				return left.add(newitem);
 			}
 		}
 		return false;
 	}
-	
+
 	public AVLNode<K, V> search(K key) {
 		int comp = this.key.compareTo(key); 
 		if(comp == 0) {
@@ -51,7 +52,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 		}
 		return null;
 	}
-	
+
 	public void preorderFill(List<V> p) {
 		p.add(value);
 		if(left != null) {
@@ -61,7 +62,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 			right.preorderFill(p);
 		}
 	}
-	
+
 	public void inorderFill(List<V> i) {
 		if(left != null) {
 			left.inorderFill(i);
@@ -71,7 +72,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 			right.inorderFill(i);
 		}
 	}
-	
+
 	public void postorderFill(List<V> p) {
 		if(left != null) {
 			left.postorderFill(p);
@@ -81,25 +82,25 @@ public class AVLNode<K extends Comparable<K>, V> {
 		}
 		p.add(value);
 	}
-	
+
 	public AVLNode<K, V> minimum() {
 		if(left != null) {
 			return left.minimum();
 		}
 		return this;
 	}
-	
+
 	public AVLNode<K, V> maximum() {
 		if(right != null) {
 			return right.maximum();
 		}
 		return this;
 	}
-	
+
 	public K getKey() {
 		return key;
 	}
-	
+
 	public void setKey(K k) {
 		key = k;
 	}
@@ -107,7 +108,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 	public AVLNode<K, V> getLeft() {
 		return left;
 	}
-	
+
 	public void setLeft(AVLNode<K ,V> l) {
 		left = l;
 	}
@@ -115,7 +116,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 	public AVLNode<K, V> getRight() {
 		return right;
 	}
-	
+
 	public void setRight(AVLNode<K, V> r) {
 		right = r;
 	}
@@ -123,7 +124,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 	public AVLNode<K, V> getParent() {
 		return parent;
 	}
-	
+
 	public void setParent(AVLNode<K, V> p) {
 		parent = p;
 	} 
@@ -131,7 +132,7 @@ public class AVLNode<K extends Comparable<K>, V> {
 	public V getValue() {
 		return value;
 	}
-	
+
 	public void setValue(V v) {
 		value = v;
 	}
