@@ -38,7 +38,7 @@ public class AVLTest {
 
 			checkAVLProperty(AVL.getRoot());
 			checkOrderProperty();
-			
+
 			found = AVL.search(keyandval);
 			assertTrue(found == keyandval, "Element should be found as it was just added");
 		}
@@ -118,32 +118,38 @@ public class AVLTest {
 		int toRemove = 4;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
+		checkAVLProperty(AVL.getRoot());
 		checkOrderProperty();
 
 		toRemove = 2;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
 		checkOrderProperty();
+		checkAVLProperty(AVL.getRoot());
 
 		toRemove = 7;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
 		checkOrderProperty();
+		checkAVLProperty(AVL.getRoot());
 
 		toRemove = 3;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
 		checkOrderProperty();
+		checkAVLProperty(AVL.getRoot());
 
 		toRemove = 1;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
 		checkOrderProperty();
+		checkAVLProperty(AVL.getRoot());
 
 		toRemove = 5;
 		AVL.delete(toRemove);
 		assertNull(AVL.search(toRemove), "Element was not deleted");
 		checkOrderProperty();
+		checkAVLProperty(AVL.getRoot());
 
 		toRemove = 6;
 		AVL.delete(toRemove);
@@ -151,10 +157,23 @@ public class AVLTest {
 		checkOrderProperty();
 
 		assertNull(AVL.getRoot(), "All the elements in the tree were removed so it must be empty");
+
+		addAndSearchTest();
+		int keyandval;
+		while(AVL.getRoot() != null) {
+			keyandval = (int)(Math.random()*1000000);
+			AVL.delete(keyandval);
+			if(AVL.getRoot() != null) {
+				checkAVLProperty(AVL.getRoot());
+			}
+			checkOrderProperty();
+
+			assertNull(AVL.search(keyandval), "Element should not have been found as it was just deleted");
+		}
 	}
 
 	public void checkAVLProperty(AVLNode<Integer, Integer> node) {
-		assertTrue(Math.abs(node.getBalanceFactor()) <= 1, "Tree is not height balanced");
+		assertTrue(Math.abs(node.getBalanceFactor()) <= 1, "Tree is not height balanced: (key="+node.getKey()+",val="+node.getValue()+",bf="+node.getBalanceFactor()+",height="+node.getheight()+")");
 		if(node.getLeft() != null) {
 			checkAVLProperty(node.getLeft());
 		}
@@ -162,7 +181,7 @@ public class AVLTest {
 			checkAVLProperty(node.getRight());
 		}
 	}
-	
+
 	public void checkOrderProperty() {
 		ArrayList<Integer> i = new ArrayList<>();
 		AVL.inorderFill(i);

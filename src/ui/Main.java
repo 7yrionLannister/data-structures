@@ -10,13 +10,14 @@ public class Main {
 		AVL<Integer, Integer> avl = new AVL<Integer, Integer>();
 		Scanner s = new Scanner(System.in);
 		int option = s.nextInt();
-		while(option == 1) {
+		while(option != 0) {
 			int nodo = s.nextInt();
 			switch(option) {
 			case 1: //insertar
 				avl.add(nodo, nodo);
 				break;
 			case 2: //eliminar
+				avl.delete(nodo);
 				break;
 			}
 			printElements(avl.getRoot());

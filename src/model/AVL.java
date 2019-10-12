@@ -15,15 +15,12 @@ public class AVL<K extends Comparable<K>, V> {
 		} else {
 			AVLNode<K, V> node = new AVLNode<>(key, value);
 			if(root.add(node)) {
-				System.out.println("SE AÑADIO");
 				refreshAncestorsHeightAndBalanceFactor(node);
 				AVLNode<K, V> dun = deeperUnbalancedNode(node);
 				if(dun != null) {
-					System.out.println("HABRA QUE BALANCEAR A "+dun.getKey());
 					int[] zigzag = isZigZagPath(dun, node, 0, 0);
 					AVLNode<K, V> rotame;
 					if(zigzag[0] > 0 && zigzag[1] > 0) { 
-						System.out.println("DOS ROTACIONES");
 						if(firstTurnRight(dun, node)) {
 							rotame = dun.getRight();
 							rightRotate(rotame);
@@ -38,7 +35,6 @@ public class AVL<K extends Comparable<K>, V> {
 							refreshAncestorsHeightAndBalanceFactor(dun);
 						}
 					} else {
-						System.out.println("UNA ROTACION");
 						if(zigzag[0] > 0) {
 							rightRotate(dun);
 							refreshAncestorsHeightAndBalanceFactor(dun);
@@ -110,7 +106,7 @@ public class AVL<K extends Comparable<K>, V> {
 		return false;
 	}
 
-	private boolean delete(AVLNode<K, V> z) {
+	private void delete(AVLNode<K, V> z) {
 		AVLNode<K, V> y;
 		if(z != null) {
 			if(z.getLeft() == null || z.getRight() == null) {
@@ -118,7 +114,7 @@ public class AVL<K extends Comparable<K>, V> {
 			} else {
 				y = successor(z);
 			}
-
+			y.setheight(0);
 			AVLNode<K, V> x;
 
 			if(y.getLeft() != null) {
@@ -129,8 +125,11 @@ public class AVL<K extends Comparable<K>, V> {
 
 			if(x != null) {
 				x.setParent(y.getParent());
+				refreshAncestorsHeightAndBalanceFactor(x);
+			} else {
+				refreshAncestorsHeightAndBalanceFactor(y.getParent());
 			}
-
+			
 			if(y.getParent() == null) {
 				root = x;
 			} else if(y == y.getParent().getLeft()) {
@@ -143,8 +142,25 @@ public class AVL<K extends Comparable<K>, V> {
 				z.setKey(y.getKey());
 				z.setValue(y.getValue());
 			}
+			//TODO borralo, se repite
+			AVLNode<K, V> dun;
+			if(x != null) {
+				x.setParent(y.getParent());
+				refreshAncestorsHeightAndBalanceFactor(x);
+				dun = deeperUnbalancedNode(x);
+			} else {
+				refreshAncestorsHeightAndBalanceFactor(y.getParent());
+				dun = deeperUnbalancedNode(y.getParent());
+			}
+			
+			if(dun != null) {
+				if(dun.getLeft() != null) {
+					rightRotate(dun);
+				} else {
+					leftRotate(dun);
+				}
+			}
 		}
-		return false;
 	}
 
 	public V search(K key) {
